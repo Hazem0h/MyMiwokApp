@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements AudioManager.OnAu
         //the activity can be destroyed but the activity object itself wasn't destroyed
         //so when onCreate is called again, data is duplicated.
         //So data population must be independent of activity state
+        super();
         populateNumList();
         populateFamilyList();
         populateColorList();
@@ -179,6 +180,15 @@ public class MainActivity extends AppCompatActivity implements AudioManager.OnAu
     @Override
     public void onCompletion(MediaPlayer mp) {
         stopPlayer();
+    }
+
+    @Override
+    protected void onDestroy() {
+        numbersList.clear();
+        familyList.clear();
+        colorList.clear();
+        phrasesList.clear();
+        super.onDestroy();
     }
 
     @Override
