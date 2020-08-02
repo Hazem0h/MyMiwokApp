@@ -32,6 +32,19 @@ public class MainActivity extends AppCompatActivity implements AudioManager.OnAu
     protected static ArrayList<Word> colorList = new ArrayList<>();
     protected static ArrayList<Word> phrasesList = new ArrayList<>();
 
+
+    public MainActivity(){
+
+        //the data sources will be populated in the activity constructor
+        //why? Becuase populating them in onCreate may duplicate the population
+        //the activity can be destroyed but the activity object itself wasn't destroyed
+        //so when onCreate is called again, data is duplicated.
+        //So data population must be independent of activity state
+        populateNumList();
+        populateFamilyList();
+        populateColorList();
+        populatePhrasesList();
+    }
     public MediaPlayer getPlayer() {
         return player;
     }
@@ -56,10 +69,6 @@ public class MainActivity extends AppCompatActivity implements AudioManager.OnAu
 
 
         ///
-        populateNumList();
-        populateFamilyList();
-        populateColorList();
-        populatePhrasesList();
         //ViewPager and TabLayout stuff
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -130,7 +139,6 @@ public class MainActivity extends AppCompatActivity implements AudioManager.OnAu
         phrasesList.add(new Word("I’m coming.", "әәnәm", 0));
         phrasesList.add(new Word("Let’s go.", "yoowutis", 0));
         phrasesList.add(new Word("Come here.", "әnni'nem", 0));
-
     }
 
     void stopPlayer(){
